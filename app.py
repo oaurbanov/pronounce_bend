@@ -1,6 +1,7 @@
 '''
 localhost:5000/words
 localhost:500/audio/plus
+localhost:500/spec/plus
 
 TODOs:
   get_specto(name) - TODO stantarize image
@@ -8,6 +9,7 @@ TODOs:
 
 from flask import Flask, jsonify, send_file
 import os
+import spec as spe
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = True
@@ -36,6 +38,30 @@ def get_audio(word):
 
   #result = { "name": "pourquio", "audio": "this is the audio"}
   #return jsonify(result)
+
+
+@app.route("/spec/<string:word>", methods=["GET"])
+def get_specto(word):
+
+  path_name = ''
+
+  print(os.path.join(ROOT_PATH,word))
+  _, _, filenames = next(os.walk(os.path.join(ROOT_PATH, word)))
+  if len(filenames) > 0 :
+    path_name = os.path.join(ROOT_PATH, word, filenames[0])
+    print(path_name)
+
+
+    path_name = spe.get_spectogram(path_name, './spec_draw.png')
+
+    # file = open(path_name, "rb")
+    # values = {"file": (path_name, file, "audio/wav")}
+
+    return send_file(
+        path_name, 
+        mimetype="image/png", 
+        as_attachment=True, 
+        attachment_filename="spec.png")
 
 
 @app.route("/words", methods=["GET"])
