@@ -7,7 +7,7 @@ TODOs:
   get_specto(name) - TODO stantarize image
 '''
 
-from flask import Flask, jsonify, send_file
+from flask import Flask, jsonify, send_file, make_response
 import os
 import spec as spe
 
@@ -30,11 +30,13 @@ def get_audio(word):
     file = open(path_name, "rb")
     values = {"file": (path_name, file, "audio/wav")}
 
-    return send_file(
+    res = make_response(send_file(
         path_name, 
         mimetype="audio/wav", 
         as_attachment=True, 
-        attachment_filename="test.wav")
+        attachment_filename="test.wav"))
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
 
   #result = { "name": "pourquio", "audio": "this is the audio"}
   #return jsonify(result)
@@ -57,11 +59,13 @@ def get_specto(word):
     # file = open(path_name, "rb")
     # values = {"file": (path_name, file, "audio/wav")}
 
-    return send_file(
+    res = make_response(send_file(
         path_name, 
         mimetype="image/png", 
         as_attachment=True, 
-        attachment_filename="spec.png")
+        attachment_filename="spec.png"))
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
 
 
 @app.route("/words", methods=["GET"])

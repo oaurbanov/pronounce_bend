@@ -26,8 +26,8 @@ def save_spectrogram(dir_save, Y, sr, hop_length, y_axis="linear"): # linear, lo
                             x_axis="time", 
                             y_axis=y_axis,
                           cmap='nipy_spectral')
-  plt.colorbar(format="%+2.f")
-  fig.savefig(dir_save, dpi=200)
+  # plt.colorbar(format="%+2.f")
+  fig.savefig(dir_save, dpi=200, pad_inches=0, bbox_inches='tight' )
 
 
 def get_spectogram(audio_file= "./DataSet/plus/0000.wav", dir_save='./specto.png'):
