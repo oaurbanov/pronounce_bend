@@ -16,6 +16,11 @@ app.config['JSON_AS_ASCII'] = True
 
 ROOT_PATH = "./DataSet"
 
+
+@app.route('/', methods=["GET"])
+def index():
+  return "Hello Pronounce_bend app"
+
 @app.route("/audio/<string:word>", methods=["GET"])
 def get_audio(word):
 
