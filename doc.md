@@ -25,3 +25,7 @@ heroku create flaskcrudapptutorial
 git push heroku master
 
 heroku logs --tail
+
+
+my page:
+https://pronouncebend.herokuapp.com/
