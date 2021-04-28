@@ -30,7 +30,7 @@ def get_audio(word):
   try:
 
     if os.path.isdir(path_name):
-      _, _, filenames = next(os.walk(os.path.join(ROOT_PATH, word)))
+      _, _, filenames = next(os.walk(path_name))
       if len(filenames) > 0 :
         path_name = os.path.join(ROOT_PATH, word, filenames[0])
         print("--Gettig audioFile for sound: ", path_name)
