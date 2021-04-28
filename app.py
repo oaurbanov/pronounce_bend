@@ -33,18 +33,21 @@ def get_audio(word):
       _, _, filenames = next(os.walk(path_name))
       if len(filenames) > 0 :
         path_name = os.path.join(ROOT_PATH, word, filenames[0])
-        print("--Gettig audioFile for sound: ", path_name)
+        path_wav = path_name[:-4] + '.wav'
+        
+        print("--Gettig audioFile for sound: ", path_wav)
+        if os.path.isfile(path_wav):
 
-        file = open(path_name, "rb")
-        values = {"file": (path_name, file, "audio/wav")}
+          file = open(path_wav, "rb")
+          values = {"file": (path_wav, file, "audio/wav")}
 
-        res = make_response(send_file(
-            path_name, 
-            mimetype="audio/wav", 
-            as_attachment=True, 
-            attachment_filename="audio_word.wav"))
-        res.headers['Access-Control-Allow-Origin'] = '*'
-        return res
+          res = make_response(send_file(
+              path_wav, 
+              mimetype="audio/wav", 
+              as_attachment=True, 
+              attachment_filename="audio_word.wav"))
+          res.headers['Access-Control-Allow-Origin'] = '*'
+          return res
 
     print("--Audio file does not exist:", path_name)
     abort(404)
