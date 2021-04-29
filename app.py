@@ -67,11 +67,12 @@ def get_specto(word):
       if len(filenames) > 0 :
         path_name = os.path.join(ROOT_PATH, word, filenames[0])
         path_img = path_name[:-4]+'.png'
+        path_wav = path_name[:-4]+'.wav'
 
         print("--Gettig spectogram: ", path_img)
         if not os.path.isfile(path_img):
           print("--Creating specto img: ", path_img)
-          path_img = spe.get_spectogram(audio_file=path_name)
+          path_img = spe.get_spectogram( dir_save='./specto.png', audio_file=path_wav)
         else:
           print("--Img already created: ", path_img)
 
@@ -110,7 +111,7 @@ def get_words():
 if __name__ == "__main__":
 
 
-  print('--- Cheking ENV os var: ', os.environ['ENV'])
+  print('--- Cheking ENV os var: ', os.environ)
 
   # app.run(debug=True)
   app.run(debug=False)
