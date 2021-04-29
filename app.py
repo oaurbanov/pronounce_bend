@@ -108,5 +108,10 @@ def get_words():
     abort(ex)
 
 if __name__ == "__main__":
-  app.run(debug=True)
+
+
+  print('--- Cheking ENV os var: ', os.environ['ENV'])
+
+  # app.run(debug=True)
+  app.run(debug=False)
 
