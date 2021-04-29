@@ -37,10 +37,6 @@ def get_audio(word):
         
         print("--Gettig audioFile for sound: ", path_wav)
         if os.path.isfile(path_wav):
-
-          file = open(path_wav, "rb")
-          values = {"file": (path_wav, file, "audio/wav")}
-
           res = make_response(send_file(
               path_wav, 
               mimetype="audio/wav", 
@@ -70,10 +66,9 @@ def get_specto(word):
       _, _, filenames = next(os.walk(path_name))
       if len(filenames) > 0 :
         path_name = os.path.join(ROOT_PATH, word, filenames[0])
-        print("--Gettig spectogram for sound: ", path_name)
-
         path_img = path_name[:-4]+'.png'
-        print("--Checking if img exists: ", path_img)
+
+        print("--Gettig spectogram: ", path_img)
         if not os.path.isfile(path_img):
           print("--Creating specto img: ", path_img)
           path_img = spe.get_spectogram(audio_file=path_name)
