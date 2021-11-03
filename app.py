@@ -7,12 +7,17 @@ TODOs:
   get_specto(name) - TODO stantarize image
 '''
 
-from flask import Flask, jsonify, send_file, make_response, abort
+from flask import Flask, jsonify, send_file, make_response, abort, Response
 import os
 import spec as spe
 
+from flask import request
+from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = True
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 ROOT_PATH = "./DataSet"
 
@@ -97,6 +102,21 @@ def get_specto(word):
     print("--get_specto Exception ocurred: ", ex)
     print(type(ex))
     abort(ex)
+
+
+@app.route("/specfromaudio/<string:word>", methods=["POST"])
+def get_specto_from_audio(word):
+  if request.method == 'POST':
+      print("Recieved Audio File")
+      print(request)
+      file = request.files['file']
+      print('File from the POST request is: {}'.format(file))
+      with open("audio.wav", "wb") as aud:
+            aud_stream = file.read()
+            aud.write(aud_stream)
+      return "Success"
+      # return Response("{'a':'b'}", status=201, mimetype='application/json')
+  return 'Call from get'
 
 
 @app.route("/words", methods=["GET"])

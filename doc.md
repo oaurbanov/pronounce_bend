@@ -2,6 +2,7 @@ virtualenv venv
 source venv/bin/activate
 
 pip install flask librosa matplotlib gunicorn
+pip install flask_cors
 
 python app.py
 
