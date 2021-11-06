@@ -91,7 +91,7 @@ def get_specto(word):
             path_img, 
             mimetype="image/png", 
             as_attachment=True, 
-            attachment_filename="spec.png"))
+            attachment_filename="spec2.png"))
         res.headers['Access-Control-Allow-Origin'] = '*'
         return res
     
@@ -106,14 +106,19 @@ def get_specto(word):
 
 @app.route("/specfromaudio/<string:word>", methods=["POST"])
 def get_specto_from_audio(word):
+  path_wav = os.path.join(ROOT_PATH, 'new', '0000.wav')
+  path_img = os.path.join(ROOT_PATH, 'new', '0000.png') # not really needed
   if request.method == 'POST':
       print("Recieved Audio File")
       print(request)
       file = request.files['file']
       print('File from the POST request is: {}'.format(file))
-      with open("audio.wav", "wb") as aud:
+      with open(path_wav, "wb") as aud:
             aud_stream = file.read()
             aud.write(aud_stream)
+      print('audio file saved')
+      path_img = spe.get_spectogram( dir_save= path_img, audio_file=path_wav)
+      print('audio img saved')
       return "Success"
       # return Response("{'a':'b'}", status=201, mimetype='application/json')
   return 'Call from get'
