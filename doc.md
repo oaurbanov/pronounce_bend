@@ -1,16 +1,18 @@
+# Create virtual env and install from requirements.txt
 virtualenv venv
 source venv/bin/activate
-
 pip install -r ./requirements.txt
+
+# Create virtual env, install packs and creating requirements.txt
 #pip install flask librosa matplotlib gunicorn flask_cors
 pip list
-
 pip freeze > ./requirements.txt
 
+# Running the app
 python app.py
 
 
-# Heroku deployment
+# Deployment (Heroku)
 
 www.heroku.com for seting up a server to host the page, install it
 heroku login
@@ -31,6 +33,6 @@ git push heroku master
 heroku logs --tail
 
 
-my page:
+## online backend page
 https://pronouncebend.herokuapp.com/
 
